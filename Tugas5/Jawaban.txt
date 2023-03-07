@@ -1,0 +1,83 @@
+<-----SOAL 1---->
+Soal 1 Membuat Database
+Buatlah database dengan nama “library”. Tulislah di text jawaban pada nomor 1.
+
+CREATE DATABASE Library;
+
+
+
+<-----SOAL 2---->
+Soal 2 Membuat Table di Dalam Database
+Buatlah tabel – tabel baru di dalam database library sesuai data-data berikut.
+
+CREATE TABLE users(
+    id			INTEGER AUTO_INCREMENT PRIMARY KEY,
+	name		varchar(255) NOT NULL,
+	email		varchar(255) NOT NULL,
+	password	varchar(255) NOT NULL
+    );
+
+CREATE TABLE categories(
+    id		int AUTO_INCREMENT PRIMARY KEY,
+	name	varchar(255) NOT NULL
+    );
+ 
+ CREATE TABLE books(
+ 	id	int AUTO_INCREMENT PRIMARY KEY,
+	title	varchar(255),
+	summary	text NOT NULL,	
+	stock	int NOT NULL,
+	category_id	int NOT NULL, FOREIGN KEY (category_id) REFERENCES categories(id)
+ );
+
+
+
+<-----SOAL 3---->
+Soal 3 Memasukkan Data pada Table
+Masukkanlah data data berikut dengan perintah SQL “INSERT INTO . . ” ke dalam table yang sudah dibuat pada soal sebelumnya.
+
+INSERT INTO users(name,email,password)
+VALUES ("John Doe","john@doe.com","john123");
+
+INSERT INTO users(name,email,password)
+VALUES ("Jane Doe","jane@doe.com","jenita123");
+
+INSERT INTO categories(name) 
+VALUES("Novel"),("Manga"),("Comic"),("History"),("IT");
+
+INSERT INTO books(title,summary,stock,category_id) 
+VALUES 	("One piece","The series focuses on Monkey D Luffy, a young man made of rubber",50,2),
+		("Laskar Pelangi","Belitung is known for its richness in tin, making it one of Indonesia's richest islands",25,1),
+        ("Rico", "Rico, a high school boy living in the fictional town of Itomori in Gifu Prefecture's",15,2);
+
+
+
+<-----SOAL 4---->
+Soal 4 Mengambil Data dari Database
+a. Mengambil data users
+Buatlah sebuah query untuk mendapatkan data seluruh user pada table users. Sajikan semua field pada table users KECUALI password nya.
+
+SELECT id, name, email FROM `users`;
+
+
+b. Mengambil data Books
+Buatlah sebuah query untuk mendapatkan data books pada table books yang memiliki stock di atas 20 buah.
+
+SELECT * FROM `books` WHERE stock >=20;
+
+Buat sebuah query untuk mengambil data books pada table books yang memiliki name serupa atau mirip (like) dengan kata kunci “one”, “pela”, atau “ame” (pilih salah satu saja).
+
+SELECT * FROM `books` WHERE title LIKE "One%";
+
+
+c. Menampilkan data items books dengan categories
+Buatlah sebuah query untuk menampilkan data items yang dilengkapi dengan data nama kategori di masing-masing items. Berikut contoh tampilan data yang ingin didapatkan
+
+SELECT books.*, categories.name from books INNER JOIN categories on books.category_id = category_id;
+
+
+<-----SOAL 5---->
+Soal 5 Mengubah Data dari Database
+Ubahlah data pada table books untuk buku dengan nama One Piece stocknya menjadi 30. Masukkan query pada text jawaban di nomor ke 5.
+
+UPDATE books set stock = 30 WHERE id = 1;
